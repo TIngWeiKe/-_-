@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[46]:
+# In[157]:
 
 
 from selenium import webdriver
@@ -17,14 +17,14 @@ from selenium.common.exceptions import NoSuchWindowException
 import sys
 
 
-# In[47]:
+# In[158]:
 
 
 driver = webdriver.Chrome("C:\\Users\\TFD\\Anaconda3\\chromedriver.exe")
 wait = WebDriverWait(driver,10)
 
 
-# In[48]:
+# In[159]:
 
 
 driver.maximize_window()
@@ -33,37 +33,37 @@ id =('j0470@tfd.gov.tw')
 password = ('j180065@')
 
 
-# In[49]:
+# In[160]:
 
 
 driver.find_element_by_name('TextBox_userID').send_keys(id)
 
 
-# In[50]:
+# In[161]:
 
 
 driver.find_element_by_name('TextBox_userPwd').send_keys(password)
 
 
-# In[51]:
+# In[162]:
 
 
 driver.find_element_by_name('Button_Login').click()
 
 
-# In[52]:
+# In[163]:
 
 
 driver.find_element_by_class_name('category-button1').click()
 
 
-# In[53]:
+# In[164]:
 
 
 driver.find_element_by_css_selector('input[value=新公文系統]').click()
 
 
-# In[54]:
+# In[165]:
 
 
 child = driver.window_handles[1]      
@@ -71,7 +71,7 @@ driver.switch_to.window(child)
 print(child)
 
 
-# In[55]:
+# In[166]:
 
 
 driver.implicitly_wait(10)
@@ -83,28 +83,28 @@ finally:
     driver.find_element_by_xpath('//*[@id="toSaveCheck"]').click()
 
 
-# In[56]:
+# In[167]:
 
 
 sleep(2)
 driver.find_element_by_id('menu1484').click()
 
 
-# In[57]:
+# In[168]:
 
 
 driver.switch_to.frame('dTreeContent')
 driver.find_element_by_name('conditionQueryAll').click()
 
 
-# In[58]:
+# In[169]:
 
 
 sleep(2)
 driver.find_element_by_xpath('//*[@id="qryModal"]/div[2]/div/div[2]/div/div/div/table/tbody/tr[4]/td[4]/select/option[3]').click()
 
 
-# In[59]:
+# In[170]:
 
 
 dayOfMonth = int(arrow.now().format('DD'))
@@ -121,20 +121,20 @@ print('星期'+dayOfWeek)
 date = year+month+str(dayOfMonth)
 
 
-# In[60]:
+# In[171]:
 
 
 driver.find_element_by_xpath('//*[@id="qryModal"]/div[2]/div/div[2]/div/div/div/table/tbody/tr[2]/td[2]/input[3]').clear()
 driver.find_element_by_xpath('//*[@id="qryModal"]/div[2]/div/div[2]/div/div/div/table/tbody/tr[2]/td[2]/input[3]').send_keys(date)
 
 
-# In[61]:
+# In[172]:
 
 
 driver.find_element_by_name('querySubmit').click()
 
 
-# In[62]:
+# In[173]:
 
 
 try :
@@ -156,12 +156,12 @@ except NoSuchElementException:
     sys.exit()
 
 
-# In[63]:
+# In[174]:
 
 
 def check_exists_by_id():
     try:
-        if driver.find_element_by_css_selector('#labdDecisionDocMark > div > span').get_attribute('innerHTML')  == "決" :
+        if driver.find_element_by_css_selector('#labdDecisionDocMark > div > span').get_attribute('innerHTML')  == "決" and driver.find_element_by_css_selector('#labdDecisionDocMark').value_of_css_property('z-index') == '6' :
             return True
         else:
             return False
@@ -169,7 +169,7 @@ def check_exists_by_id():
         return False
 
 
-# In[ ]:
+# In[175]:
 
 
 t = 1
@@ -192,7 +192,7 @@ for x in range (1,int(pageSize)+1):
         t += 1
 
 
-# In[415]:
+# In[ ]:
 
 
 driver.switch_to.window(child2)
@@ -204,7 +204,7 @@ sleep(5)
 driver.find_element_by_xpath('//*[@id="toSaveCheck"]').click()
 
 
-# In[64]:
+# In[ ]:
 
 
 def auto_refresh():
@@ -229,8 +229,8 @@ def auto_refresh():
         if driver.current_url =="http://localhost:16888/doPostMsg": 
             try:
                 driver.refresh()
-                print('已重新整理')
                 sleep(3)
+                print('已重新整理')
             except NoSuchWindowException:
                 return
         else:
@@ -239,7 +239,7 @@ def auto_refresh():
         print("No refresh")
 
 
-# In[65]:
+# In[ ]:
 
 
 def break_point():
@@ -252,7 +252,7 @@ def break_point():
         return False
 
 
-# In[66]:
+# In[ ]:
 
 
 while(break_point()):
@@ -260,7 +260,7 @@ while(break_point()):
     auto_refresh()
 
 
-# In[26]:
+# In[154]:
 
 
 sys.exit()
