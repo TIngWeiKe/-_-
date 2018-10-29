@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[397]:
+# In[46]:
 
 
 from selenium import webdriver
@@ -17,53 +17,53 @@ from selenium.common.exceptions import NoSuchWindowException
 import sys
 
 
-# In[398]:
+# In[47]:
 
 
 driver = webdriver.Chrome("C:\\Users\\TFD\\Anaconda3\\chromedriver.exe")
 wait = WebDriverWait(driver,10)
 
 
-# In[399]:
+# In[48]:
 
 
 driver.maximize_window()
 driver.get("https://ssopxy.gov.taipei/SSOPXY/Default.aspx")
-id =('****')
-password = ('****')
+id =('j0470@tfd.gov.tw')
+password = ('j180065@')
 
 
-# In[400]:
+# In[49]:
 
 
 driver.find_element_by_name('TextBox_userID').send_keys(id)
 
 
-# In[401]:
+# In[50]:
 
 
 driver.find_element_by_name('TextBox_userPwd').send_keys(password)
 
 
-# In[402]:
+# In[51]:
 
 
 driver.find_element_by_name('Button_Login').click()
 
 
-# In[403]:
+# In[52]:
 
 
 driver.find_element_by_class_name('category-button1').click()
 
 
-# In[404]:
+# In[53]:
 
 
 driver.find_element_by_css_selector('input[value=新公文系統]').click()
 
 
-# In[405]:
+# In[54]:
 
 
 child = driver.window_handles[1]      
@@ -71,7 +71,7 @@ driver.switch_to.window(child)
 print(child)
 
 
-# In[406]:
+# In[55]:
 
 
 driver.implicitly_wait(10)
@@ -83,28 +83,28 @@ finally:
     driver.find_element_by_xpath('//*[@id="toSaveCheck"]').click()
 
 
-# In[407]:
+# In[56]:
 
 
 sleep(2)
 driver.find_element_by_id('menu1484').click()
 
 
-# In[421]:
+# In[57]:
 
 
 driver.switch_to.frame('dTreeContent')
 driver.find_element_by_name('conditionQueryAll').click()
 
 
-# In[422]:
+# In[58]:
 
 
 sleep(2)
 driver.find_element_by_xpath('//*[@id="qryModal"]/div[2]/div/div[2]/div/div/div/table/tbody/tr[4]/td[4]/select/option[3]').click()
 
 
-# In[423]:
+# In[59]:
 
 
 dayOfMonth = int(arrow.now().format('DD'))
@@ -121,20 +121,20 @@ print('星期'+dayOfWeek)
 date = year+month+str(dayOfMonth)
 
 
-# In[424]:
+# In[60]:
 
 
 driver.find_element_by_xpath('//*[@id="qryModal"]/div[2]/div/div[2]/div/div/div/table/tbody/tr[2]/td[2]/input[3]').clear()
 driver.find_element_by_xpath('//*[@id="qryModal"]/div[2]/div/div[2]/div/div/div/table/tbody/tr[2]/td[2]/input[3]').send_keys(date)
 
 
-# In[425]:
+# In[61]:
 
 
 driver.find_element_by_name('querySubmit').click()
 
 
-# In[427]:
+# In[62]:
 
 
 try :
@@ -156,7 +156,7 @@ except NoSuchElementException:
     sys.exit()
 
 
-# In[414]:
+# In[63]:
 
 
 def check_exists_by_id():
@@ -200,11 +200,11 @@ driver.close()
 driver.switch_to.window(driver.window_handles[1])
 driver.switch_to.frame('dTreeContent')
 driver.find_element_by_xpath('//*[@id="functionMenuContainer"]/span[1]/input').click()
-sleep(3)
+sleep(5)
 driver.find_element_by_xpath('//*[@id="toSaveCheck"]').click()
 
 
-# In[416]:
+# In[64]:
 
 
 def auto_refresh():
@@ -227,9 +227,10 @@ def auto_refresh():
         qw=driver.window_handles[2]
         driver.switch_to.window(qw)
         if driver.current_url =="http://localhost:16888/doPostMsg": 
-            print('已重新整理')
             try:
                 driver.refresh()
+                print('已重新整理')
+                sleep(3)
             except NoSuchWindowException:
                 return
         else:
@@ -238,76 +239,29 @@ def auto_refresh():
         print("No refresh")
 
 
-# In[432]:
+# In[65]:
 
 
 def break_point():
     driver.switch_to.window(driver.window_handles[1])
-    driver.switch_to.default_content()
+    driver.switch_to.frame('dTreeContent')
     try:
-        driver.find_element_by_id('boxMsg_s')
-        return False
-    except NoSuchElementException:
+        driver.find_element_by_id('iframe01')
         return True
+    except NoSuchElementException:
+        return False
 
 
-# In[434]:
+# In[66]:
 
 
 while(break_point()):
+    sleep(3)
     auto_refresh()
 
 
-# In[ ]:
+# In[26]:
 
 
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
+sys.exit()
 
